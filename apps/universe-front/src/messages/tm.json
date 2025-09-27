@@ -1,0 +1,285 @@
+{
+  "AdminUniversities": {
+    "title": "Admin – Uniwersitetleri Dolandyrmak",
+    "accessDenied": "Giriş gadagan",
+    "noPermission": "Bu sahypa girmäge hukugyňyz ýok.",
+    
+    "form": {
+      "basicInfo": "Esasy maglumat",
+      "programDetails": "Programma jikme-jiklikleri",
+      "requirements": "Talablar",
+      "additionalInfo": "Goşmaça maglumat",
+      "websiteLinks": "Web sahypa çykgytlary",
+      
+      "fields": {
+        "name": "Uniwersitetiň ady",
+        "description": "Düşündiriş",
+        "photoUrl": "Surat URL-i",
+        "specials": "Hususy ukyplar",
+        "financing": "Maliýeleşdirme opsiýalary",
+        "duration": "Dowamlylygy",
+        "applicationDeadline": "Arza bermek möhleti",
+        "gender": "Jyns",
+        "age": "Iň az ýaş",
+        "others": "Beýleki talablar",
+        "others_p": "Beýleki programma talablary",
+        "medicine": "Saglyk goralgysy",
+        "salary": "Maşg berilýärmi",
+        "domitory": "Otag hakynda maglumat",
+        "rewards": "Baýrak/stipendiýalar",
+        "officialLink": "Resmi programma çykgydy"
+      },
+      
+      "placeholders": {
+        "optional": "opsional",
+        "required": "hökmany",
+        "selectGender": "Jynsy saýlaň",
+        "salaryOption": "Maşg berilýärmi?",
+        "durationExample": "meselem, 4 ýyl"
+      },
+      
+      "options": {
+        "gender": {
+          "everyone": "Hemmesi",
+          "male": "Erkek",
+          "female": "Aýal"
+        },
+        "salary": {
+          "yes": "Hawa",
+          "no": "Ýok"
+        }
+      }
+    },
+    
+    "buttons": {
+      "addUniversity": "Uniwersitet goş",
+      "updateUniversity": "Uniwersiteti täzele",
+      "cancel": "Ýatyryň",
+      "edit": "Redaktirle",
+      "delete": "Poz",
+      "visit": "Gör",
+      "saving": "Saklanýar..."
+    },
+    
+    "table": {
+      "title": "Uniwersitetler ({count})",
+      "headers": {
+        "id": "ID",
+        "name": "Ady",
+        "description": "Düşündiriş",
+        "specials": "Hususy ukyplar",
+        "duration": "Dowamlylyk",
+        "deadline": "Möhlet",
+        "website": "Web sahypa",
+        "actions": "Hereketler"
+      },
+      "noData": "Uniwersitetler tapylmady",
+      "savingChanges": "Üýtgeşmeler saklanýar..."
+    },
+    
+    "messages": {
+      "loading": "Uniwersitetler ýüklenýär...",
+      "confirmDelete": "Bu uniwersiteti pozmak isleýändigiňize ynanýarsyňyzmy?",
+      "error": "Ýalňyşlyk: {error}",
+      "errorCreating": "Uniwersitet döredilende ýalňyşlyk: {error}",
+      "errorUpdating": "Uniwersitet täzelenende ýalňyşlyk: {error}",
+      "errorDeleting": "Uniwersitet pozulanda ýalňyşlyk: {error}"
+    }
+  },
+
+  "FavoritesPage": {
+    "loading": "Söýgili uniwersitetleriňiz ýüklenýär...",
+    "error": "Uniwersitet maglumatlary ýüklenmekde näsazlyk ýüze çykdy",
+    "title": "Meniň Söýgili Uniwersitetlerim",
+    "subtitle": "Siziň halanyp saklan uniwersitetleriňiz",
+    "searchPlaceholder": "Söýgili uniwersitetleriňizi gözläň...",
+    "totalFavorites": "Jemi Söýgililer",
+    "matchingSearch": "Gözlegime laýyk gelýär",
+    "emptyState": {
+      "title": "Heniz Söýgili Uniwersitet Ýok",
+      "description": "Uniwersitetleri gözläp başlaň we ýürek nyşanyna basyp olary söýgili goşuň.",
+      "exploreButton": "Uniwersitetleri Gözläň"
+    },
+    "noResults": {
+      "title": "Netije Tapylmady",
+      "description": "\"{search}\" gözlegiňize laýyk gelen söýgili uniwersitet ýok",
+      "clearSearch": "Gözlegi arassala"
+    }
+  },
+
+  "AuthPage": {
+    "welcomeBack": "Yzyna hoş geldiňiz!",
+    "login": {
+      "title": "Giriş",
+      "subtitle": "Yzyna hoş geldiňiz! Akkaundyňyza giriň.",
+      "signIn": "Giriş",
+      "signingIn": "Girilýär..."
+    },
+    "signup": {
+      "title": "Hasap Açmak",
+      "subtitle": "Başlamak üçin täze hasap açyň.",
+      "createAccount": "Hasap Aç",
+      "creatingAccount": "Hasap açylýar..."
+    },
+    "form": {
+      "email": "Email",
+      "emailPlaceholder": "Emailiňizi giriziň",
+      "password": "Açarsöz",
+      "passwordPlaceholder": "Açarsöziňizi giriziň",
+      "createPassword": "Açarsöz dörediň",
+      "confirmPassword": "Açarsözi Tassyklamak",
+      "confirmPasswordPlaceholder": "Açarsöziňizi tassyklayň",
+      "fullName": "Doly Ady",
+      "fullNamePlaceholder": "Doly adyňyzy giriziň"
+    },
+    "switchMode": {
+      "noAccount": "Hasabyňyz ýokmy? ",
+      "haveAccount": "Hasabyňyz barmy? ",
+      "signUp": "Hasap aç",
+      "signIn": "Giriş"
+    },
+    "errors": {
+      "loginFailed": "Giriş şowsuz",
+      "registrationFailed": "Hasap açmak şowsuz",
+      "passwordMismatch": "Açarsözler gabat gelmeýär",
+      "passwordLength": "Açarsöz azyndan 6 nyşandan ybarat bolmaly",
+      "generic": "Näsazlyk ýüze çykdy"
+    }
+  },
+
+  "ProfilePage": {
+    "loading": "Profil ýüklenýär...",
+    "error": "Profili ýüklemekde näsazlyk",
+    "noName": "Ady ýok",
+    "editProfile": "Profili Üýtgetmek",
+    "saving": "Saklanýar...",
+    "likedUniversities": "Halanan Uniwersitetler",
+    "noLikedUniversities": "Heniz hiç uniwersiteti halamadyňyz.",
+    "exploreUniversities": "Uniwersitetleri gör",
+    "editModal": {
+      "title": "Profili Üýtgetmek",
+      "form": {
+        "name": "Ady",
+        "namePlaceholder": "Adyňyzy giriziň",
+        "email": "Email",
+        "emailPlaceholder": "Emailiňizi giriziň"
+      },
+      "buttons": {
+        "cancel": "Ýatyrmak",
+        "save": "Üýtgeşmeleri Saklamak"
+      },
+      "errors": {
+        "nameRequired": "Ady hökmany",
+        "emailRequired": "Email hökmany",
+        "emailInvalid": "Nädogry email"
+      }
+    }
+  },
+
+  "UniversitiesPage": {
+    "title": "Uniwersitetler",
+    "subtitle": "Dünýäniň ähli ýerlerindäki uniwersitetleri gözläň we açyň",
+    "loading": "Uniwersitetler ýüklenýär...",
+    "error": "Uniwersitetleri ýüklemekde näsazlyk",
+    "search": {
+      "placeholder": "Uniwersitetleri gözläň...",
+      "button": "Gözlemek",
+      "resultsCount": "Netije Tapyldy"
+    },
+    "noResults": {
+      "title": "Uniwersitetler tapylmady",
+      "description": "Gözleg ýa-da filter ülçemlerini üýtgediň."
+    },
+    "emptyState": {
+      "title": "Elýeterli uniwersitetler ýok",
+      "description": "Häzirki wagtda görkezmek üçin uniwersitetler ýok."
+    }
+  },
+
+  "UniversityCard": {
+    "visitWebsite": "Web sahypasyna gitmek",
+    "addFavorite": "Söýgililere goşmak",
+    "removeFavorite": "Söýgililerden aýyrmak",
+    "loginRequired": "Söýgililere goşmak üçin giriň",
+    "authPrompt": "Söýgililere goşmak üçin ulgama girmeli. Häzir hasap açmak ýa-da girmek isleýärsiňizmi?",
+    "modal": {
+      "authPrompt": "Söýgililere goşmak üçin ulgama girmeli. Häzir hasap açmak ýa-da girmek isleýärsiňizmi?",
+      "buttons": {
+        "addFavorite": "Söýgililere Goşmak",
+        "removeFavorite": "Söýgililerden Aýyrmak",
+        "loginRequired": "Söýgililere goşmak üçin giriň",
+        "visitWebsite": "Resmi Web Sahypasyna Gitmek"
+      },
+      "sections": {
+        "specializations": "Uzmanlyklar",
+        "financing": "Maliýeleşdirme Opsiýalary",
+        "duration": "Programma Dowamlylygy",
+        "deadline": "Arza Beriş Möhleti",
+        "gender": "Jynsy Talablar",
+        "age": "Ýaş Talablary",
+        "medical": "Medisina Talablary",
+        "salary": "Aýlyk Hakda Maglumat",
+        "dormitory": "Ýaşaýyş Jaýy Barada Maglumat",
+        "scholarships": "Stypendiýalar we Sylaglary",
+        "otherInfo": "Beýleki Maglumatlar",
+        "additionalDetails": "Goşmaça Jikme-Jiklikler"
+      }
+    }
+  },
+
+  "HomePage": {
+    "featuredUniversities": "Meňzeş Uniwersitetler",
+    "topUniversities": "Iň Oňat Uniwersitetler"
+  },
+
+  "Header": {
+    "logo": "UniExplorer",
+    "nav": {
+      "home": "Baş Sahypa",
+      "search": "Gözlemek",
+      "likes": "Halananlar",
+      "profile": "Profil",
+      "login": "Giriş",
+      "logout": "Çykmak"
+    },
+    "aria": {
+      "menu": "Menyuny Açmak/Yapmak"
+    }
+  },
+
+  "Footer": {
+    "about": {
+      "title": "Biz Barada",
+      "description": "UniExplorer studentlara ýokary bilim ýoly üçin amatly uniwersiteti tapmaga kömek edýär. Biz dünýäniň ähli ýerlerindäki uniwersitetler barada jikme-jik maglumat berýäris."
+    },
+    "contact": {
+      "title": "Habarlaşmak Üçin Maglumat",
+      "address": "Bilim Köçesi 123, Bilim Şäheri",
+      "phone": "+1 (555) 123-4567",
+      "email": "info@uniexplorer.com"
+    },
+    "follow": {
+      "title": "Bizi Yzarlaň",
+      "facebook": "Facebook",
+      "twitter": "Twitter",
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn"
+    },
+    "copyright": "© {year} UniExplorer. Ähli hukuklar goralandyr."
+  },
+
+  "sHeader": {
+    "logo": "UniExplorer",
+    "nav": {
+      "home": "Baş Sahypa",
+      "search": "Gözlemek",
+      "likes": "Halananlar",
+      "profile": "Profil",
+      "login": "Giriş",
+      "logout": "Çykmak"
+    },
+    "aria": {
+      "menu": "Menyuny Açmak/Yapmak"
+    }
+  }
+}
