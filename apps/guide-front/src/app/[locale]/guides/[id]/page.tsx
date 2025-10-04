@@ -16,6 +16,7 @@ const PCAssemblySteps = () => {
   const router = useRouter();
   const { id } = params;
   const t = useTranslations('GuideSteps');
+  const isAuth = !!Cookies.get('auth_token')
 
   // Get current user from cookies
   useEffect(() => {
@@ -32,7 +33,7 @@ const PCAssemblySteps = () => {
 
   // Load bookmarks and completed steps from state for current user
   useEffect(() => {
-    if (!currentUserId) return;
+    if (!isAuth) alert("Log in!")
 
     // Load bookmarks for this user (using state instead of localStorage)
     const savedBookmarks = window.bookmarksData?.[currentUserId] || [];
@@ -54,7 +55,7 @@ const PCAssemblySteps = () => {
   const toggleBookmark = () => {
     if (!currentUserId) {
       console.log('User not logged in');
-      return;
+      alert("Log in!")
     }
 
     if (!window.bookmarksData) window.bookmarksData = {};
@@ -76,6 +77,7 @@ const PCAssemblySteps = () => {
 
   // For anonymous users
   const handleAnonymousUser = () => {
+    if (!isAuth) alert("Log in!")
     const tempUserId = `anonymous_${Date.now()}`;
     setCurrentUserId(tempUserId);
     return tempUserId;
