@@ -326,30 +326,37 @@
   },
 
   "ProfilePage": {
-    "loading": "Profil ýüklenýär...",
-    "error": "Profili ýüklemekde näsazlyk",
-    "noName": "Ady ýok",
-    "editProfile": "Profili Üýtgetmek",
+    "guides": "{{count}} gollanma",
+    "guides_plural": "{{count}} gollanma",
+    "editProfile": "Profili redaktirlemek",
     "saving": "Saklanýar...",
-    "likedUniversities": "Halananlar",
-    "noLikedUniversities": "Heniz hiç zat halamadyňyz.",
-    "exploreUniversities": "Gör",
+    "noName": "At belgilenmedik",
+    "noEmail": "E-mail belgilenmedik",
+    "error": "Profili ýüklemekde näsazlyk",
+    "bookmarkedGuides": "Belgilenen gollanmalar",
+    "noBookmarkedGuides": "Heniz belgilenen gollanma ýok",
+    "bookmarkGuideHint": "Peýdaly gollanmalary belgileň, olara çalt ýetmek üçin",
+    "exploreGuides": "Gollanmalary gözlemek",
+    "viewGuide": "Gollanmany görmek",
+    "likedUniversities": "Halanan uniwersitetler",
+    "noLikedUniversities": "Heniz halanan uniwersitet ýok",
+    "exploreUniversities": "Uniwersitetleri gözlemek",
     "editModal": {
-      "title": "Profili Üýtgetmek",
+      "title": "Profili redaktirlemek",
       "form": {
-        "name": "Ady",
-        "namePlaceholder": "Adyňyzy giriziň",
-        "email": "Email",
-        "emailPlaceholder": "Emailiňizi giriziň"
+        "name": "Doly ady",
+        "namePlaceholder": "Doly adyňyzy giriziň",
+        "email": "E-mail adresi",
+        "emailPlaceholder": "E-mail adresiňizi giriziň"
       },
       "buttons": {
-        "cancel": "Ýatyrmak",
-        "save": "Üýtgeşmeleri Saklamak"
+        "cancel": "Ýatyr",
+        "save": "Üýtgeşmeleri saklamak"
       },
       "errors": {
-        "nameRequired": "Ady hökmany",
-        "emailRequired": "Email hökmany",
-        "emailInvalid": "Nädogry email"
+        "nameRequired": "Ad hökmany",
+        "emailRequired": "E-mail hökmany",
+        "emailInvalid": "Dogry e-mail adresini giriziň"
       }
     }
   },

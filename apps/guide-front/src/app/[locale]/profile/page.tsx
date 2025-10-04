@@ -187,12 +187,28 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ isOpen, onClose, pr
   );
 };
 
+// Define the Guide interface to match your PCAssemblySteps data structure
+interface Guide {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  difficulty: string;
+  duration: string;
+  rating: number;
+  reviewCount: number;
+  updatedAt: string;
+  steps: any[];
+  // Add other guide fields as needed
+}
+
 const ProfilePage = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [favoriteIds, setFavoriteIds] = useState<number[]>([]);
-  const [favoriteUniversities, setFavoriteUniversities] = useState<University[]>([]);
-  const [allUniversities, setAllUniversities] = useState<University[]>([]);
+  const [favoriteGuideIds, setFavoriteGuideIds] = useState<string[]>([]);
+  const [favoriteGuides, setFavoriteGuides] = useState<Guide[]>([]);
+  const [allGuides, setAllGuides] = useState<Guide[]>([]);
   const [isClient, setIsClient] = useState(false);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const queryClient = useQueryClient();
   const token = Cookies.get('auth_token');
   const t = useTranslations("ProfilePage");
@@ -200,61 +216,67 @@ const ProfilePage = () => {
   const locale = useLocale();
   const router = useRouter();
 
-  // Set client-side flag
+  // Set client-side flag and get user ID from cookies
   useEffect(() => {
     setIsClient(true);
+    
+    // Get user ID from cookies
+    const userCookie = Cookies.get('user_data');
+    if (userCookie) {
+      try {
+        const userData = JSON.parse(userCookie);
+        setCurrentUserId(userData.id);
+      } catch (error) {
+        console.error('Error parsing user_data cookie:', error);
+      }
+    }
   }, []);
 
-  // Fetch all universities to match with favorite IDs
-  const { data: universitiesData } = useQuery({
-    queryKey: ['universities'],
-    queryFn: async () => await fetchData({ url: '/api/universities' }),
+  // Fetch all guides to match with favorite IDs
+  const { data: guidesData } = useQuery({
+    queryKey: ['guides'],
+    queryFn: async () => await fetchData({ url: '/api/guides' }),
     enabled: isClient, // Only fetch on client side
   });
 
-  // Set all universities when data loads
+  // Set all guides when data loads
   useEffect(() => {
-    if (universitiesData) {
-      setAllUniversities(universitiesData);
+    if (guidesData) {
+      setAllGuides(guidesData);
     }
-  }, [universitiesData]);
+  }, [guidesData]);
 
-  // Get favorite university IDs from localStorage - CLIENT ONLY
+  // Get favorite guide IDs from localStorage - CLIENT ONLY
   useEffect(() => {
-    if (!isClient) return;
+    if (!isClient || !currentUserId) return;
 
-    const getFavoriteIds = () => {
+    const getFavoriteGuideIds = () => {
       try {
-        const favorites = localStorage.getItem('university_favorites');
-        if (favorites) {
-          const parsedFavorites = JSON.parse(favorites);
-          if (Array.isArray(parsedFavorites)) {
-            if (parsedFavorites.length > 0 && typeof parsedFavorites[0] === 'object') {
-              // Handle case where full university objects are stored
-              const ids = parsedFavorites.map((uni: any) => uni.id).filter((id: number) => id != null);
-              setFavoriteIds(ids);
-              localStorage.setItem('university_favorites', JSON.stringify(ids));
-            } else {
-              // Handle case where only IDs are stored
-              setFavoriteIds(parsedFavorites.filter((id: any) => id != null && typeof id === 'number'));
-            }
+        const storageKey = `bookmarkedGuides_${currentUserId}`;
+        const bookmarkedGuidesStr = localStorage.getItem(storageKey);
+        
+        if (bookmarkedGuidesStr) {
+          const bookmarkedIds = JSON.parse(bookmarkedGuidesStr);
+          if (Array.isArray(bookmarkedIds)) {
+            setFavoriteGuideIds(bookmarkedIds);
           } else {
-            setFavoriteIds([]);
+            setFavoriteGuideIds([]);
           }
         } else {
-          setFavoriteIds([]);
+          setFavoriteGuideIds([]);
         }
       } catch (error) {
-        console.error('Error reading favorite universities from localStorage:', error);
-        setFavoriteIds([]);
+        console.error('Error reading bookmarked guides from localStorage:', error);
+        setFavoriteGuideIds([]);
       }
     };
 
-    getFavoriteIds();
+    getFavoriteGuideIds();
 
+    // Listen for storage changes (in case bookmarks are updated in other tabs)
     const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'university_favorites') {
-        getFavoriteIds();
+      if (e.key === `bookmarkedGuides_${currentUserId}`) {
+        getFavoriteGuideIds();
       }
     };
 
@@ -263,19 +285,19 @@ const ProfilePage = () => {
     return () => {
       window.removeEventListener('storage', handleStorageChange);
     };
-  }, [isClient]);
+  }, [isClient, currentUserId]);
 
-  // Sync favorite universities with actual university data
+  // Sync favorite guides with actual guide data
   useEffect(() => {
-    if (allUniversities.length > 0 && favoriteIds.length > 0) {
-      const favUnis = allUniversities.filter((uni: University) => 
-        favoriteIds.includes(uni.id)
+    if (allGuides.length > 0 && favoriteGuideIds.length > 0) {
+      const favGuides = allGuides.filter((guide: Guide) => 
+        favoriteGuideIds.includes(guide.id)
       );
-      setFavoriteUniversities(favUnis);
+      setFavoriteGuides(favGuides);
     } else {
-      setFavoriteUniversities([]);
+      setFavoriteGuides([]);
     }
-  }, [allUniversities, favoriteIds]);
+  }, [allGuides, favoriteGuideIds]);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['profileData'],
@@ -388,30 +410,68 @@ const ProfilePage = () => {
       <div className={styles.content}>
         <section className={styles.likedUniversitiesSection}>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>{t('likedUniversities')}</h2>
+            <h2 className={styles.sectionTitle}>{t('bookmarkedGuides')}</h2>
           </div>
           <div className={styles.universitiesContainer}>
-            {favoriteUniversities.length === 0 ? (
+            {favoriteGuides.length === 0 ? (
               <div className={styles.emptyState}>
                 <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" 
                         stroke="currentColor" strokeWidth="2" fill="none"/>
                 </svg>
-                <h3>{t('noLikedUniversities')}</h3>
+                <h3>{t('noBookmarkedGuides')}</h3>
+                <p>{t('bookmarkGuideHint')}</p>
                 <button 
                   className={styles.exploreButton}
                   onClick={() => handleNavigate('/')}
                 >
-                  {t('exploreUniversities')}
+                  {t('exploreGuides')}
                 </button>
               </div>
             ) : (
-              <div className={styles.universitiesGrid}>
-                {favoriteUniversities.map((university: University) => (
-                  <UniversityCard 
-                    key={university.id} 
-                    uni={university}
-                  />
+              <div className={styles.guidesGrid}>
+                {favoriteGuides.map((guide: Guide) => (
+                  <div key={guide.id} className={styles.guideCard}>
+                    <div className={styles.guideImage}>
+                      <div className={styles.guideImagePlaceholder}>
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" 
+                                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
+                    <div className={styles.guideContent}>
+                      <h3 className={styles.guideTitle}>{guide.title}</h3>
+                      <p className={styles.guideDescription}>{guide.description}</p>
+                      <div className={styles.guideMeta}>
+                        <span className={styles.guideCategory}>{guide.category}</span>
+                        <span 
+                          className={styles.guideDifficulty}
+                          style={{ 
+                            backgroundColor: getDifficultyColor(guide.difficulty) + '20',
+                            color: getDifficultyColor(guide.difficulty)
+                          }}
+                        >
+                          {guide.difficulty}
+                        </span>
+                        <span className={styles.guideDuration}>{guide.duration}</span>
+                      </div>
+                      <div className={styles.guideStats}>
+                        <span className={styles.guideRating}>
+                          ⭐ {guide.rating} ({guide.reviewCount})
+                        </span>
+                        <span className={styles.guideSteps}>
+                          {guide.steps?.length || 0} steps
+                        </span>
+                      </div>
+                      <button 
+                        className={styles.viewGuideButton}
+                        onClick={() => handleNavigate(`/guides/${guide.id}`)}
+                      >
+                        {t('viewGuide')}
+                      </button>
+                    </div>
+                  </div>
                 ))}
               </div>
             )}
@@ -427,6 +487,16 @@ const ProfilePage = () => {
       />
     </div>
   );
+};
+
+// Helper function to get difficulty color (same as in PCAssemblySteps)
+const getDifficultyColor = (difficulty: string) => {
+  switch(difficulty?.toLowerCase()) {
+    case 'easy': return '#10b981';
+    case 'medium': return '#f59e0b';
+    case 'hard': return '#ef4444';
+    default: return '#6b7280';
+  }
 };
 
 export default ProfilePage;

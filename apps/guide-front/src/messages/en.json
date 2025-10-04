@@ -326,21 +326,28 @@
   },
 
   "ProfilePage": {
-    "loading": "Loading profile...",
-    "error": "Error loading profile",
-    "noName": "No name",
+    "guides": "{{count}} guide",
+    "guides_plural": "{{count}} guides",
     "editProfile": "Edit Profile",
     "saving": "Saving...",
-    "likedUniversities": "Liked Universities",
-    "noLikedUniversities": "You have not liked any universities yet.",
-    "exploreUniversities": "Explore univerisities",
+    "noName": "No name provided",
+    "noEmail": "No email provided",
+    "error": "Error loading profile",
+    "bookmarkedGuides": "Bookmarked Guides",
+    "noBookmarkedGuides": "No bookmarked guides yet",
+    "bookmarkGuideHint": "Bookmark guides you find helpful to access them quickly here",
+    "exploreGuides": "Explore Guides",
+    "viewGuide": "View Guide",
+    "likedUniversities": "Favorite Universities",
+    "noLikedUniversities": "No favorite universities yet",
+    "exploreUniversities": "Explore Universities",
     "editModal": {
       "title": "Edit Profile",
       "form": {
-        "name": "Name",
-        "namePlaceholder": "Enter your name",
-        "email": "Email",
-        "emailPlaceholder": "Enter your email"
+        "name": "Full Name",
+        "namePlaceholder": "Enter your full name",
+        "email": "Email Address",
+        "emailPlaceholder": "Enter your email address"
       },
       "buttons": {
         "cancel": "Cancel",
@@ -349,7 +356,7 @@
       "errors": {
         "nameRequired": "Name is required",
         "emailRequired": "Email is required",
-        "emailInvalid": "Email is invalid"
+        "emailInvalid": "Please enter a valid email address"
       }
     }
   },

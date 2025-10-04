@@ -326,20 +326,27 @@
   },
 
   "ProfilePage": {
-    "loading": "Загрузка профиля...",
-    "error": "Ошибка загрузки профиля",
-    "noName": "Имя не указано",
+     "guides": "{{count}} руководство",
+    "guides_plural": "{{count}} руководств",
     "editProfile": "Редактировать профиль",
     "saving": "Сохранение...",
-    "likedUniversities": "Понравившиеся университеты",
-    "noLikedUniversities": "Вы еще не добавили университеты в избранное.",
-    "exploreUniversities": "Университеты",
+    "noName": "Имя не указано",
+    "noEmail": "Email не указан",
+    "error": "Ошибка загрузки профиля",
+    "bookmarkedGuides": "Сохраненные руководства",
+    "noBookmarkedGuides": "Пока нет сохраненных руководств",
+    "bookmarkGuideHint": "Сохраняйте полезные руководства, чтобы быстро находить их здесь",
+    "exploreGuides": "Найти руководства",
+    "viewGuide": "Посмотреть руководство",
+    "likedUniversities": "Избранные университеты",
+    "noLikedUniversities": "Пока нет избранных университетов",
+    "exploreUniversities": "Найти университеты",
     "editModal": {
       "title": "Редактировать профиль",
       "form": {
-        "name": "Имя",
-        "namePlaceholder": "Введите ваше имя",
-        "email": "Email",
+        "name": "Полное имя",
+        "namePlaceholder": "Введите ваше полное имя",
+        "email": "Адрес электронной почты",
         "emailPlaceholder": "Введите ваш email"
       },
       "buttons": {
@@ -349,7 +356,7 @@
       "errors": {
         "nameRequired": "Имя обязательно",
         "emailRequired": "Email обязателен",
-        "emailInvalid": "Некорректный email"
+        "emailInvalid": "Пожалуйста, введите корректный email адрес"
       }
     }
   },

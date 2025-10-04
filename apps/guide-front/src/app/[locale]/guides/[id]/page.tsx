@@ -30,26 +30,16 @@ const PCAssemblySteps = () => {
     }
   }, []);
 
-  // Initialize storage objects
-  useEffect(() => {
-    if (!window.bookmarksData) window.bookmarksData = {};
-    if (!window.completedStepsData) window.completedStepsData = {};
-  }, []);
-
   // Load bookmarks and completed steps from state for current user
   useEffect(() => {
     if (!currentUserId) return;
 
-    // Initialize storage if needed
-    if (!window.bookmarksData) window.bookmarksData = {};
-    if (!window.completedStepsData) window.completedStepsData = {};
-
     // Load bookmarks for this user (using state instead of localStorage)
-    const savedBookmarks = window.bookmarksData[currentUserId] || [];
+    const savedBookmarks = window.bookmarksData?.[currentUserId] || [];
     setBookmarked(savedBookmarks.includes(id));
 
     // Load completed steps for this guide and user (using state)
-    const savedCompletedSteps = window.completedStepsData[`${currentUserId}_${id}`] || [];
+    const savedCompletedSteps = window.completedStepsData?.[`${currentUserId}_${id}`] || [];
     setCompletedSteps(savedCompletedSteps);
   }, [id, currentUserId]);
 
@@ -57,7 +47,7 @@ const PCAssemblySteps = () => {
   useEffect(() => {
     if (!currentUserId) return;
     if (!window.completedStepsData) window.completedStepsData = {};
-    window.completedStepsData[`${currentUserId}_${id}`] = [...completedSteps];
+    window.completedStepsData[`${currentUserId}_${id}`] = completedSteps;
   }, [completedSteps, id, currentUserId]);
 
   // Toggle bookmark and save to state for current user
@@ -280,7 +270,7 @@ const PCAssemblySteps = () => {
   return (
     <div className="container">
       <style>{`
-       :root {
+        :root {
           --main-color: #e11d48;
           --bg-color: #fafafa;
           --text-color: #1e293b;
@@ -456,6 +446,7 @@ const PCAssemblySteps = () => {
           color: #64748b;
           transition: color 0.2s;
           margin-top: 0.25rem;
+          user-select: none;
         }
 
         .stepCheckbox:hover {
@@ -463,7 +454,7 @@ const PCAssemblySteps = () => {
         }
 
         .stepCheckbox.completed {
-          color: #10b981;
+          color: #10b981 !important;
         }
 
         .stepHeaderContent {
