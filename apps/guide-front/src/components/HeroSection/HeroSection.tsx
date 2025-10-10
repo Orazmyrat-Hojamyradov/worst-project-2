@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import styles from './HeroSection.module.css';
+import Link from 'next/link';
 
 const HeroSection = () => {
   const t = useTranslations('HeroSection');
@@ -22,12 +23,11 @@ const HeroSection = () => {
           </p>
           
           <div className={styles.buttons}>
-            <button className={`${styles.button} ${styles.primary}`}>
-              {t('getStarted')}
-            </button>
-            <button className={`${styles.button} ${styles.secondary}`}>
-              {t('watchDemo')}
-            </button>
+            <Link style={{ zIndex: 1000 }}  href="#let">
+              <button className={`${styles.button} ${styles.primary}`}>
+                {t('getStarted')}
+              </button>
+            </Link>
           </div>
           
           <div className={styles.stats}>

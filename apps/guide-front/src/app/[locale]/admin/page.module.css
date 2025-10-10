@@ -190,7 +190,7 @@
   margin: 0;
   font-size: 1.1rem;
   font-weight: 600;
-  color: #374151;
+  color: var(--text-color);
 }
 
 .removeButton {
@@ -516,7 +516,7 @@
 
 .mediaInfo span {
   font-weight: 500;
-  color: #333;
+  color: var(--text-color);
 }
 
 .mediaLink {
@@ -585,7 +585,7 @@
   display: block;
   margin-bottom: 8px;
   font-weight: 500;
-  color: #333;
+  color: var(--text-color);
   font-size: 14px;
 }
 
@@ -617,7 +617,7 @@
 
 .mediaInfo span {
   font-weight: 500;
-  color: #333;
+  color: var(--text-color);
 }
 
 .mediaLink {
@@ -686,7 +686,7 @@
   display: block;
   margin-bottom: 8px;
   font-weight: 500;
-  color: #333;
+  color: var(--text-color);
   font-size: 14px;
 }
 

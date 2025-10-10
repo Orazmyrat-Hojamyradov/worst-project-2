@@ -22,6 +22,10 @@
   --border-color: #334155;     /* Dark slate borders */
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   padding: 0;

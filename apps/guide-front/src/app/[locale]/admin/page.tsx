@@ -3,6 +3,9 @@
 import React, { useState } from "react";
 import styles from "./page.module.css";
 import { useCreateUniversity, useDeleteUniversity, useFetchUniversities, useUpdateUniversity } from "./hooks";
+import Cookies from "js-cookie";
+import { useTranslations } from "next-intl";
+import CustomSelect from "@/components/ui/Select/Select";
 
 interface Tip {
   id: string;
@@ -80,6 +83,10 @@ export default function AdminUniversitiesPage() {
   const createMutation = useCreateUniversity();
   const updateMutation = useUpdateUniversity();
   const deleteMutation = useDeleteUniversity();
+  const t = useTranslations('AdminUniversities');
+
+  const userData = Cookies.get('user_data')
+  const user = userData ? JSON.parse(userData) : null
 
   console.log(universities);
 
@@ -343,6 +350,15 @@ export default function AdminUniversitiesPage() {
     (uni: University) => uni.language === currentLanguage
   );
 
+   if ( user?.role !== 'admin' ) {
+    return (
+      <div className={styles.container}>
+        <h1 className={styles.title}>{t('accessDenied')}</h1>
+        <p className={styles.error}>{t('noPermission')}</p>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
       {/* Language Toggle */}
@@ -396,20 +412,21 @@ export default function AdminUniversitiesPage() {
           className={styles.input}
         />
 
-        <select
-          value={formData.difficulty}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              difficulty: e.target.value as CreateUniversityPayload["difficulty"],
-            })
-          }
-          className={styles.select}
-        >
-          <option value="Beginner">Beginner</option>
-          <option value="Intermediate">Intermediate</option>
-          <option value="Advanced">Advanced</option>
-        </select>
+          <CustomSelect
+            value={formData.difficulty}
+            onChange={(val) =>
+              setFormData({
+                ...formData,
+                difficulty: val as CreateUniversityPayload["difficulty"],
+              })
+            }
+            options={[
+              { value: "Beginner", label: "Beginner" },
+              { value: "Intermediate", label: "Intermediate" },
+              { value: "Advanced", label: "Advanced" },
+            ]}
+          />
+
 
         <input
           type="text"
