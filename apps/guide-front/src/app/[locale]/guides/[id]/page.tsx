@@ -269,6 +269,9 @@ const PCAssemblySteps = () => {
     );
   };
 
+  console.log(guideData);
+  
+
   return (
     <div className="container">
       <style>{`
@@ -956,7 +959,7 @@ const PCAssemblySteps = () => {
 
                     {expandedSteps[step.id] && (
                       <div className="detailsPlaceholder">
-                        {t('additionalDetails')}
+                        {guideData?.description}
                       </div>
                     )}
 

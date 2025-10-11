@@ -9,6 +9,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useFetchUniversities } from "./admin/hooks";
 import { useState, useMemo, useEffect } from "react";
 import { categories } from "@/categories";
+import Cookies from "js-cookie";
 
 interface FilterState {
   category: string;
@@ -23,6 +24,7 @@ type Guide = typeof example
 function App() {
   const { data, isLoading, error } = useFetchUniversities();
   const t = useTranslations("HomePage");
+  const locale = useLocale();
   
   const [filters, setFilters] = useState<FilterState>({
     category: t('allCategories'),
@@ -31,14 +33,19 @@ function App() {
     rating: t('anyRating')
   });
 
-  // Translate categories on the client side
+  const currentLanguage = useLocale();
 
   // Enhanced duration parser with error handling
-  const parseDurationToMinutes = (duration: string): number => {
-    if (!duration || typeof duration !== 'string') return 0;
+  const parseDurationToMinutes = (duration: string | number): number => {
+    if (!duration) return 0;
     
     try {
-      const lowerDuration = duration.toLowerCase();
+      // If duration is already a number, treat it as hours
+      if (typeof duration === 'number') {
+        return duration * 60;
+      }
+
+      const lowerDuration = duration.toString().toLowerCase();
       
       // Handle ranges like "3-4 hours"
       if (lowerDuration.includes('-')) {
@@ -81,7 +88,7 @@ function App() {
     return data;
   };
 
-  // Filter the data based on current filters
+  // Filter the data based on current filters and language
   const filteredData = useMemo(() => {
     const safeData = getSafeData();
     if (!safeData.length) return [];
@@ -89,14 +96,27 @@ function App() {
     return safeData.filter((guide: Guide) => {
       if (!guide || typeof guide !== 'object') return false;
 
-      // Category filter
-      if (filters.category !== t('allCategories') && guide.category !== filters.category) {
+      // Language filter - filter by cookie locale
+      if (guide.language && guide.language !== currentLanguage) {
         return false;
       }
 
+      // Category filter
+      if (filters.category !== t('allCategories')) {
+        const guideCategory = guide.category?.toLowerCase().trim();
+        const filterCategory = filters.category.toLowerCase().trim();
+        if (guideCategory !== filterCategory) {
+          return false;
+        }
+      }
+
       // Difficulty filter
-      if (filters.difficulty !== t('allLevels') && guide.difficulty !== filters.difficulty) {
-        return false;
+      if (filters.difficulty !== t('allLevels')) {
+        const guideDifficulty = guide.difficulty?.toLowerCase().trim();
+        const filterDifficulty = filters.difficulty.toLowerCase().trim();
+        if (guideDifficulty !== filterDifficulty) {
+          return false;
+        }
       }
 
       // Duration filter
@@ -105,7 +125,7 @@ function App() {
         
         switch (filters.duration) {
           case t('under30min'):
-            if (guideDurationMinutes > 30) return false;
+            if (guideDurationMinutes > 30 || guideDurationMinutes === 0) return false;
             break;
           case t('30to60min'):
             if (guideDurationMinutes < 30 || guideDurationMinutes > 60) return false;
@@ -124,19 +144,21 @@ function App() {
 
       // Rating filter
       if (filters.rating !== t('anyRating')) {
-        const guideRating = Number(guide.rating) || 0;
+        const guideRating = typeof guide.rating === 'number' 
+          ? guide.rating 
+          : Number(guide.rating) || 0;
         
         switch (filters.rating) {
-          case t('4.5plusStars'):
+          case t('45plusStars'):
             if (guideRating < 4.5) return false;
             break;
-          case t('4.0plusStars'):
+          case t('40plusStars'):
             if (guideRating < 4.0) return false;
             break;
-          case t('3.5plusStars'):
+          case t('35plusStars'):
             if (guideRating < 3.5) return false;
             break;
-          case t('3.0plusStars'):
+          case t('30plusStars'):
             if (guideRating < 3.0) return false;
             break;
         }
@@ -144,7 +166,7 @@ function App() {
 
       return true;
     });
-  }, [data, filters, t]);
+  }, [data, filters, t, currentLanguage]);
 
   const handleFilterChange = (newFilters: FilterState) => {
     setFilters(newFilters);
@@ -194,26 +216,6 @@ function App() {
   return (
     <div className="app">
       <HeroSection />
-
-      {/* <h1 style={{ textAlign: 'center' }}>{t('assemblyCategories')}</h1>
-      <p style={{ textAlign: 'center', marginBottom: '40px' }}>
-        {t('categoriesDescription')}
-      </p> */}
-      
-      {/* <div className="categories-section">
-        <div className="categories-grid">
-          {translatedCategories.map((category, index) => (
-            <CategoryCard
-              key={index}
-              level={category.level}
-              guidesCount={category.guidesCount}
-              title={category.title}
-              description={category.description}
-              image={category.image}
-            />
-          ))}
-        </div>
-      </div> */}
 
       <h1 style={{ textAlign: 'center' }}>{t('featuredGuides')}</h1>
       <p style={{ textAlign: 'center', marginBottom: '40px' }}>
